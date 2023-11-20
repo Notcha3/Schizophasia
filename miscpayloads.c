@@ -334,9 +334,9 @@ VOID WINAPI fnFindVolumes(VOID) {
 	DWORD dwRetLength = MAX_PATH;
 
 	HANDLE hVolumeHandle = FindFirstVolumeW(
-  	szVolName,
-  	MAX_PATH
-	);
+  							szVolName,
+  							MAX_PATH
+							);
 
 	if(
 	GetDriveTypeW(szVolName) == DRIVE_FIXED | //hard disks, stuff like that
