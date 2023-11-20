@@ -41,9 +41,9 @@ INT WINAPI WinMain (
 	// if debug is set true by cmdline argument, the destructive payloads would be disabled
 	INT iArgAmount = 0;
 	LPWSTR *pszCommandLineArgs = CommandLineToArgvW(
-									GetCommandLineW(),
-		 							&iArgAmount
-		 							);
+					GetCommandLineW(),
+		 			&iArgAmount
+		 			);
 
 	if (iArgAmount > 1 && _wcsicmp(
 		pszCommandLineArgs[1],
