@@ -111,7 +111,7 @@ BOOL CALLBACK fnEnumWindowsProc(
 	LPWSTR pszRandomString[30];
 	
 	_itow(
-		fnRNG()%999999999999999999,
+		fnRNG()%16144,
 		(LPWSTR)pszRandomString,
 		2
 	);
@@ -172,13 +172,24 @@ VOID WINAPI fnScreenRotation(VOID) {
 	
 	INT iRgbqMem = (stScreenCords.right - stScreenCords.left) * (stScreenCords.bottom - stScreenCords.top);
 
-	RGBQUAD *pColorPallete;
+	RGBQUAD *pColorPalette;
 	POINT stParmPoints[3];
 	BITMAPINFO stBitmapInfo;
 
-	ZeroMemory(&pColorPallete, sizeof(RGBQUAD));
-	ZeroMemory(&stBitmapInfo, sizeof(BITMAPINFO));
-	ZeroMemory(&stBitmapInfo.bmiHeader, sizeof(BITMAPINFOHEADER));
+	ZeroMemory(
+		&pColorPalette, 
+		sizeof(RGBQUAD)
+		);
+
+	ZeroMemory(
+		&stBitmapInfo, 
+		sizeof(BITMAPINFO)
+		);
+
+	ZeroMemory(
+		&stBitmapInfo.bmiHeader, 
+		sizeof(BITMAPINFOHEADER)
+		);
 
 	stBitmapInfo.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
 	stBitmapInfo.bmiHeader.biPlanes = 1;
@@ -200,7 +211,7 @@ VOID WINAPI fnScreenRotation(VOID) {
 		hMemoryDC, 
 		&stBitmapInfo, 
 		DIB_RGB_COLORS, 
-		(PVOID*)&pColorPallete, 
+		(PVOID*)&pColorPalette, 
 		NULL, 
 		0
 		);
@@ -220,7 +231,7 @@ VOID WINAPI fnScreenRotation(VOID) {
 			g_hRootWindowDC, 
 			0, 
 			0,
-			SRCCOPY
+			NOTSRCCOPY
 		);
 	
 
@@ -273,9 +284,11 @@ VOID WINAPI fnSolidBrushColours(VOID) {
 	while (g_iGDIPayloadCount != 5) {
 
 		HBRUSH hBrush = CreateSolidBrush(
-			RGB(fnRNG()%255, 
-			fnRNG()%255, 
-			fnRNG()%255));
+			RGB(
+				fnRNG()%255, 
+				fnRNG()%255, 
+				fnRNG()%255)
+			);
 		
 		FillRect(
 			g_hRootWindowDC, 
@@ -294,18 +307,20 @@ VOID WINAPI fnDecColourPalby100(VOID) {
 
 	INT iRgbqMem = (stScreenCords.right - stScreenCords.left) * (stScreenCords.bottom - stScreenCords.top);
 
-	RGBQUAD *pColorPallete;
+	RGBQUAD *pColorPalette;
 
 	BITMAPINFO stBitmapInfo;
 
 	ZeroMemory(
-		&pColorPallete, 
+		&pColorPalette, 
 		sizeof(RGBQUAD)
 		);
+
 	ZeroMemory(
 		&stBitmapInfo, 
 		sizeof(BITMAPINFO)
 		);
+
 	ZeroMemory(
 		&stBitmapInfo.bmiHeader, 
 		sizeof(BITMAPINFOHEADER)
@@ -324,7 +339,7 @@ VOID WINAPI fnDecColourPalby100(VOID) {
 		hMemoryDC, 
 		&stBitmapInfo, 
 		DIB_RGB_COLORS, 
-		(PVOID*)&pColorPallete, 
+		(PVOID*)&pColorPalette, 
 		NULL, 
 		0
 		);
@@ -345,18 +360,18 @@ VOID WINAPI fnDecColourPalby100(VOID) {
 		);
 
 		for(INT iA = 0; iA<iRgbqMem; iA++) {
-			pColorPallete[iA].rgbRed-=100;
-			pColorPallete[iA].rgbGreen-=100;
-			pColorPallete[iA].rgbBlue-=100;
+			pColorPalette[iA].rgbRed-=100;
+			pColorPalette[iA].rgbGreen-=100;
+			pColorPalette[iA].rgbBlue-=100;
 		}
 
 		BitBlt(
-			g_hRootWindowDC,
-			0, 
-			0,
-			stBitmapInfo.bmiHeader.biWidth,
-			stBitmapInfo.bmiHeader.biHeight,
-			hMemoryDC,
+			g_hRootWindowDC, 
+			fnRNG()%2,
+			fnRNG()%2,
+			stBitmapInfo.bmiHeader.biWidth, 
+			stBitmapInfo.bmiHeader.biHeight, 
+			hMemoryDC, 
 			0, 
 			0,
 			SRCCOPY
@@ -373,18 +388,20 @@ VOID WINAPI fnIncrementColourPalStatic(VOID) {
 
 	INT iRgbqMem = (stScreenCords.right - stScreenCords.left) * (stScreenCords.bottom - stScreenCords.top);
 
-	RGBQUAD *pColorPallete;
+	RGBQUAD *pColorPalette;
 
 	BITMAPINFO stBitmapInfo;
 
 	ZeroMemory(
-		&pColorPallete, 
+		&pColorPalette, 
 		sizeof(RGBQUAD)
 		);
+
 	ZeroMemory(
 		&stBitmapInfo, 
 		sizeof(BITMAPINFO)
 		);
+
 	ZeroMemory(
 		&stBitmapInfo.bmiHeader, 
 		sizeof(BITMAPINFOHEADER)
@@ -403,7 +420,7 @@ VOID WINAPI fnIncrementColourPalStatic(VOID) {
 		hMemoryDC, 
 		&stBitmapInfo, 
 		DIB_RGB_COLORS, 
-		(PVOID*)&pColorPallete, 
+		(PVOID*)&pColorPalette, 
 		NULL, 
 		0
 		);
@@ -427,9 +444,9 @@ VOID WINAPI fnIncrementColourPalStatic(VOID) {
 		);
 
 		for(INT iA = 0; iA<iRgbqMem; iA++) {
-			pColorPallete[iA].rgbRed++;
-			pColorPallete[iA].rgbGreen=fnRNG()%255;
-			pColorPallete[iA].rgbBlue++;
+			pColorPalette[iA].rgbRed++;
+			pColorPalette[iA].rgbGreen=fnRNG()%255;
+			pColorPalette[iA].rgbBlue++;
 		}
 
 		BitBlt(
@@ -457,18 +474,20 @@ VOID WINAPI fnIncrementColourPal(VOID) {
 	
 	INT iRgbqMem = (stScreenCords.right - stScreenCords.left) * (stScreenCords.bottom - stScreenCords.top);
 
-	RGBQUAD *pColorPallete;
+	RGBQUAD *pColorPalette;
 
 	BITMAPINFO stBitmapInfo;
 
 	ZeroMemory(
-		&pColorPallete, 
+		&pColorPalette, 
 		sizeof(RGBQUAD)
 		);
+
 	ZeroMemory(
 		&stBitmapInfo, 
 		sizeof(BITMAPINFO)
 		);
+
 	ZeroMemory(
 		&stBitmapInfo.bmiHeader, 
 		sizeof(BITMAPINFOHEADER)
@@ -487,7 +506,7 @@ VOID WINAPI fnIncrementColourPal(VOID) {
 		hMemoryDC, 
 		&stBitmapInfo, 
 		DIB_RGB_COLORS, 
-		(PVOID*)&pColorPallete, 
+		(PVOID*)&pColorPalette, 
 		NULL, 
 		0
 		);
@@ -511,9 +530,9 @@ VOID WINAPI fnIncrementColourPal(VOID) {
 		);
 
 		for(INT iA = 0; iA<iRgbqMem; iA++) {
-			pColorPallete[iA].rgbRed++;
-			pColorPallete[iA].rgbGreen++;
-			pColorPallete[iA].rgbBlue++;
+			pColorPalette[iA].rgbRed++;
+			pColorPalette[iA].rgbGreen++;
+			pColorPalette[iA].rgbBlue++;
 		}
 
 		BitBlt(
@@ -539,12 +558,10 @@ VOID WINAPI fnCaptchaText(VOID) {
 
 	while(g_iGDIPayloadCount != 7) {
 
-		INT iRandNum = fnRNG()%360;
-
 		LPWSTR pszRandomString[13];
 	
 	_itow(
-		fnRNG()%9999999999,
+		fnRNG()%4096,
 		(LPWSTR)pszRandomString,
 		16
 	);
@@ -552,7 +569,7 @@ VOID WINAPI fnCaptchaText(VOID) {
 		HFONT hFont = CreateFontW(
 			50,
 			-MulDiv((stScreenCords.right - stScreenCords.left) * (stScreenCords.bottom - stScreenCords.top), GetDeviceCaps(g_hRootWindowDC, LOGPIXELSY), 72),
-			iRandNum,
+			fnRNG()%4564545645645,
 			0,
 			FW_BOLD,
 			FALSE,

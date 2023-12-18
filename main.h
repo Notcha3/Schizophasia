@@ -1,6 +1,6 @@
 #pragma once
 
-#define _USE_MATH_DEFINES // math constants ( the pi, eiler's number, etc)
+#define _USE_MATH_DEFINES // math constants
 #define WIN32_LEAN_AND_MEAN // don't include unnecessary windows headers
 #define _WIN32_WINNT 0x0501 // so that the compiler targets xp
 
@@ -20,7 +20,6 @@
 
 extern ULONG g_uRngSeed;
 extern INT g_iGDIPayloadCount;
-extern HANDLE g_hSineWave;
 extern BOOL g_bDebug;
 
 // Function prototypes
@@ -36,4 +35,3 @@ VOID WINAPI fnPayloadTimer(VOID);
 #include "miscpayloads.h" //    Mostly destructive payloads
 #include "graphicalpayloads.h" //   Graphical payloads
 #include "arrays.h" //  Arrays that store strings, etc stuff.
-#include "waveforms.h" //   Single function which generates the sine wave, used for generating audio

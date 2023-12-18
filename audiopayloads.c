@@ -125,28 +125,12 @@ VOID WINAPI fnNoise1(VOID) {
 			return;
 			}
 
-	g_hSineWave = CreateThread(
-				NULL, 
-				0, 
-				(LPTHREAD_START_ROUTINE)fnSineWave, 
-				NULL, 
-				0, 
-				NULL
-				);
-
-				Sleep(4000);
-
 	for(INT iT = 0; iT<3000000; iT++) 
-		lpBuff[iT] = (FLOAT)g_afWave[g_iSample] * iT * 3;
-
-	TerminateThread(
-		g_hSineWave, 
-		EXIT_SUCCESS
-		);
+		lpBuff[iT] = (FLOAT)SineWaveMacro(1, 44100 / 48000000, iT, 0) * iT / 60;
 
 	fnPCMplayer(
 		lpBuff, 
-		59000, 
+		39000, 
 		3000000
 		);
 
@@ -175,25 +159,9 @@ VOID WINAPI fnNoise2(VOID) {
 	if (lpBuff == NULL) {
 			return;
 			}
-
-	g_hSineWave = CreateThread(
-				NULL, 
-				0, 
-				(LPTHREAD_START_ROUTINE)fnSineWave, 
-				NULL, 
-				0, 
-				NULL
-				);
-
-				Sleep(3000);
 				
 	for(INT iT = 0; iT<3000000; iT++) 
-		lpBuff[iT] = (FLOAT)g_afWave[g_iSample] * 80000 / 9.2f + iT;
-
-	TerminateThread(
-		g_hSineWave, 
-		EXIT_SUCCESS
-		);
+		lpBuff[iT] = (FLOAT)SineWaveMacro(4, 44, iT, 0) * 80000 / 9.2f + iT;
 
 	fnPCMplayer(
 		lpBuff, 
