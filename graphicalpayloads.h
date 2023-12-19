@@ -34,7 +34,7 @@ VOID WINAPI fnWindTextRandomInt(VOID);
 VOID WINAPI fnScreenRotation(VOID);
 VOID WINAPI fnRandomPatternBrush(VOID);
 VOID WINAPI fnSolidBrushColours(VOID);
-VOID WINAPI fnDecColourPalby100(VOID);
+VOID WINAPI fnHSLRandColourPal(VOID);
 VOID WINAPI fnIncrementColourPalStatic(VOID);
 VOID WINAPI fnIncrementColourPal(VOID);
 VOID WINAPI fnCaptchaText(VOID);

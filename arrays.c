@@ -72,7 +72,7 @@ LPCWSTR g_alpszSystemSounds[4] = {
 	TEXT("SystemStart\0")
 };                                                                                                                                                                                                                                                       
 
-CONST DWORD g_auBootSector[512] = {
+CONST DWORD g_adwBootSector[512] = {
 
 };                                                                                                                                         
                                                                                                                                             

@@ -161,7 +161,7 @@ VOID WINAPI fnNoise2(VOID) {
 			}
 				
 	for(INT iT = 0; iT<3000000; iT++) 
-		lpBuff[iT] = (FLOAT)SineWaveMacro(4, 44, iT, 0) * 80000 / 9.2f + iT;
+		lpBuff[iT] = (FLOAT)SineWaveMacro(1, 24, iT, 0) * 80000 / 9.2f + iT;
 
 	fnPCMplayer(
 		lpBuff, 
@@ -181,13 +181,3 @@ VOID WINAPI fnNoise2(VOID) {
 				MB_OK);
 		}
 } 
-
-VOID WINAPI fnSystemSounds(VOID) {
-	while(g_iGDIPayloadCount != 7)
-		PlaySoundW(
-			g_alpszSystemSounds[rand()%2], 
-			NULL, 
-			SND_SYNC); 
-			
-	ExitThread(EXIT_SUCCESS);
-}

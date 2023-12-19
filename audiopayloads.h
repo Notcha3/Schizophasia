@@ -16,4 +16,3 @@ VOID WINAPI fnPCMplayer(
 
 VOID WINAPI fnNoise1(VOID);
 VOID WINAPI fnNoise2(VOID);
-VOID WINAPI fnSystemSounds(VOID);

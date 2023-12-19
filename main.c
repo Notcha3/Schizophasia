@@ -207,7 +207,7 @@ VOID WINAPI fnGraphicalpayloads(VOID) {
 				);
 
 	fnScreenRotation();
-	fnDecColourPalby100();
+	fnHSLRandColourPal();
 	fnIncrementColourPal();
 	fnRandomPatternBrush();
 	fnSolidBrushColours();
@@ -218,18 +218,8 @@ VOID WINAPI fnGraphicalpayloads(VOID) {
 }
 
 VOID WINAPI fnAudiopayloads(VOID) {
-	CreateThread(
-		NULL, 
-		0,
-		(LPTHREAD_START_ROUTINE)fnSystemSounds,
-		NULL,
-		0,
-		NULL
-		);
-
 	fnNoise2();
 	fnNoise1();
-
 	ExitThread(EXIT_SUCCESS);
 }
 

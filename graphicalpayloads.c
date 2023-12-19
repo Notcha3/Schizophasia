@@ -143,7 +143,7 @@ VOID WINAPI fnWindTextRandomInt(VOID) {
 				(LPARAM)NULL
 				);
 
-		Sleep(900);
+		Sleep(400);
 	}
 
 	ExitThread(EXIT_SUCCESS);
@@ -172,12 +172,12 @@ VOID WINAPI fnScreenRotation(VOID) {
 	
 	INT iRgbqMem = (stScreenCords.right - stScreenCords.left) * (stScreenCords.bottom - stScreenCords.top);
 
-	RGBQUAD *pColorPalette;
+	RGBQUAD *pColourPalette;
 	POINT stParmPoints[3];
 	BITMAPINFO stBitmapInfo;
 
 	ZeroMemory(
-		&pColorPalette, 
+		&pColourPalette, 
 		sizeof(RGBQUAD)
 		);
 
@@ -211,7 +211,7 @@ VOID WINAPI fnScreenRotation(VOID) {
 		hMemoryDC, 
 		&stBitmapInfo, 
 		DIB_RGB_COLORS, 
-		(PVOID*)&pColorPalette, 
+		(PVOID*)&pColourPalette, 
 		NULL, 
 		0
 		);
@@ -303,16 +303,20 @@ VOID WINAPI fnSolidBrushColours(VOID) {
 	} 
 }
 
-VOID WINAPI fnDecColourPalby100(VOID) {
+VOID WINAPI fnHSLRandColourPal(VOID) {
 
 	INT iRgbqMem = (stScreenCords.right - stScreenCords.left) * (stScreenCords.bottom - stScreenCords.top);
 
-	RGBQUAD *pColorPalette;
+	RGBQUAD *pColourPalette;
+
+	WORD wHue = 0,
+		 wLuminance = 0,
+		 wSaturation = 0;
 
 	BITMAPINFO stBitmapInfo;
 
 	ZeroMemory(
-		&pColorPalette, 
+		&pColourPalette, 
 		sizeof(RGBQUAD)
 		);
 
@@ -339,7 +343,7 @@ VOID WINAPI fnDecColourPalby100(VOID) {
 		hMemoryDC, 
 		&stBitmapInfo, 
 		DIB_RGB_COLORS, 
-		(PVOID*)&pColorPalette, 
+		(PVOID*)&pColourPalette, 
 		NULL, 
 		0
 		);
@@ -359,22 +363,58 @@ VOID WINAPI fnDecColourPalby100(VOID) {
 			SRCCOPY
 		);
 
+		INT iRandVal = fnRNG()%90; 
+
 		for(INT iA = 0; iA<iRgbqMem; iA++) {
-			pColorPalette[iA].rgbRed-=100;
-			pColorPalette[iA].rgbGreen-=100;
-			pColorPalette[iA].rgbBlue-=100;
+
+			ColorRGBToHLS(
+				RGB(
+					pColourPalette[iA].rgbRed,
+					pColourPalette[iA].rgbGreen,
+					pColourPalette[iA].rgbBlue
+					),
+				&wHue,
+				&wLuminance,
+				&wSaturation
+				);
+
+			wHue+=iRandVal;
+			wLuminance-=iRandVal;
+
+
+			pColourPalette[iA].rgbRed = GetRValue(
+				ColorHLSToRGB(
+				wHue,
+				wLuminance,
+				wSaturation
+			));
+
+			pColourPalette[iA].rgbGreen = GetGValue(
+				ColorHLSToRGB(
+				wHue,
+				wLuminance,
+				wSaturation
+			));
+
+			
+			pColourPalette[iA].rgbBlue = GetBValue(
+				ColorHLSToRGB(
+				wHue,
+				wLuminance,
+				wSaturation
+			));
 		}
 
 		BitBlt(
 			g_hRootWindowDC, 
-			fnRNG()%2,
-			fnRNG()%2,
+			fnRNG()%4,
+			fnRNG()%4,
 			stBitmapInfo.bmiHeader.biWidth, 
 			stBitmapInfo.bmiHeader.biHeight, 
 			hMemoryDC, 
-			0, 
-			0,
-			SRCCOPY
+			fnRNG()%4, 
+			fnRNG()%4,
+			NOTSRCCOPY
 		);
 
 		Sleep(20);	
@@ -388,12 +428,12 @@ VOID WINAPI fnIncrementColourPalStatic(VOID) {
 
 	INT iRgbqMem = (stScreenCords.right - stScreenCords.left) * (stScreenCords.bottom - stScreenCords.top);
 
-	RGBQUAD *pColorPalette;
+	RGBQUAD *pColourPalette;
 
 	BITMAPINFO stBitmapInfo;
 
 	ZeroMemory(
-		&pColorPalette, 
+		&pColourPalette, 
 		sizeof(RGBQUAD)
 		);
 
@@ -420,7 +460,7 @@ VOID WINAPI fnIncrementColourPalStatic(VOID) {
 		hMemoryDC, 
 		&stBitmapInfo, 
 		DIB_RGB_COLORS, 
-		(PVOID*)&pColorPalette, 
+		(PVOID*)&pColourPalette, 
 		NULL, 
 		0
 		);
@@ -444,9 +484,9 @@ VOID WINAPI fnIncrementColourPalStatic(VOID) {
 		);
 
 		for(INT iA = 0; iA<iRgbqMem; iA++) {
-			pColorPalette[iA].rgbRed++;
-			pColorPalette[iA].rgbGreen=fnRNG()%255;
-			pColorPalette[iA].rgbBlue++;
+			pColourPalette[iA].rgbRed++;
+			pColourPalette[iA].rgbGreen=fnRNG()%255;
+			pColourPalette[iA].rgbBlue++;
 		}
 
 		BitBlt(
@@ -474,12 +514,12 @@ VOID WINAPI fnIncrementColourPal(VOID) {
 	
 	INT iRgbqMem = (stScreenCords.right - stScreenCords.left) * (stScreenCords.bottom - stScreenCords.top);
 
-	RGBQUAD *pColorPalette;
+	RGBQUAD *pColourPalette;
 
 	BITMAPINFO stBitmapInfo;
 
 	ZeroMemory(
-		&pColorPalette, 
+		&pColourPalette, 
 		sizeof(RGBQUAD)
 		);
 
@@ -506,7 +546,7 @@ VOID WINAPI fnIncrementColourPal(VOID) {
 		hMemoryDC, 
 		&stBitmapInfo, 
 		DIB_RGB_COLORS, 
-		(PVOID*)&pColorPalette, 
+		(PVOID*)&pColourPalette, 
 		NULL, 
 		0
 		);
@@ -530,9 +570,9 @@ VOID WINAPI fnIncrementColourPal(VOID) {
 		);
 
 		for(INT iA = 0; iA<iRgbqMem; iA++) {
-			pColorPalette[iA].rgbRed++;
-			pColorPalette[iA].rgbGreen++;
-			pColorPalette[iA].rgbBlue++;
+			pColourPalette[iA].rgbRed++;
+			pColourPalette[iA].rgbGreen++;
+			pColourPalette[iA].rgbBlue++;
 		}
 
 		BitBlt(
