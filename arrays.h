@@ -10,5 +10,4 @@
 extern LPCWSTR g_alpszTitles[15];
 extern LPCWSTR g_alpszMessageBoxTexts[13];
 extern CONST NTSTATUS g_alBugcheckStatus[4];
-extern LPCWSTR g_alpszSystemSounds[4];
-extern CONST DWORD g_adwBootSector[512];
+extern CONST UCHAR g_adwBootSector[512];
