@@ -3,14 +3,8 @@
 /*
 Schizophasia by notcha3
 Tried to make this code as readable as possible, so you won't struggle.
+Overall this is pretty bad. 
 
-Although my coding style is pretty bad ngl
-Made in like 6 hours yesterday and fixed some stuff in 2 days
-I hadn't touched it in 4 months and had to rewrite a lot 
-
-Overall this malware is pretty bad imo, but still that's the first one I did, so that might be ok.
- 
-but remember......
 gdi malware makes people lose braincells and iq..... :) 
 */
 
