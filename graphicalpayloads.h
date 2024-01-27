@@ -3,27 +3,13 @@
 //Project headers
 #include "main.h"
 
-extern HWND //g_hLayeredWindow,
-	g_hRootWindow;
+extern HWND g_hRootWindow;
 
-extern HDC //g_hLayeredWindowDC,
-	g_hRootWindowDC;
+extern HDC g_hRootWindowDC;
 
 extern RECT stScreenCords;
 
 //Function prototypes
-
-/*
-VOID WINAPI fnCreateLayeredWindow(VOID);
-
-
-LRESULT CALLBACK fnWindProc(
-	_In_ HWND hWnd,
-	_In_ UINT uiMessages,
-	_Inout_ WPARAM pWparam,
-	_In_ LPARAM lpParam
-);
-*/
 
 BOOL CALLBACK fnEnumWindowsProc(
 	_In_ HWND   hwnd,

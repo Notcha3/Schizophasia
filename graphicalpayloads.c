@@ -1,108 +1,10 @@
 #include "graphicalpayloads.h"
 
-HWND //g_hLayeredWindow = NULL,
-	g_hRootWindow = NULL;
-
-HDC //g_hLayeredWindowDC = NULL,
-	g_hRootWindowDC = NULL;
+HWND g_hRootWindow = NULL;
+HDC g_hRootWindowDC = NULL;
 
 RECT stScreenCords;
-/*
 
-Unused, i wanted to make some payloads which utilised the layered window
-
-but then i had no ideas and just scrapped it lol
-
-might update it, but won't most likely
-
-i'll leave the code anyway lol, just commented out 
-
-VOID WINAPI fnCreateLayeredWindow(VOID) {
-
-	WNDCLASSEX stLayeredWindow = {0};
-	
-	stLayeredWindow.cbSize = sizeof(WNDCLASSEX);
-	stLayeredWindow.hInstance = GetModuleHandle(NULL);
-	stLayeredWindow.lpszClassName = TEXT("Schizophasia\0");
-	stLayeredWindow.cbClsExtra = 0;
-	stLayeredWindow.cbWndExtra = 0;
-	stLayeredWindow.hbrBackground = NULL;
-	stLayeredWindow.hCursor = NULL;
-	stLayeredWindow.hIcon = NULL;
-	stLayeredWindow.hIconSm = NULL;
-	stLayeredWindow.style = 0;
-	stLayeredWindow.lpszMenuName = NULL;
-	stLayeredWindow.lpfnWndProc = fnWindProc;
-
-	RegisterClassEx(&stLayeredWindow);
-
-
-	g_hLayeredWindow = CreateWindowEx(
-		WS_EX_LAYERED | WS_EX_TRANSPARENT | WS_EX_TOPMOST | WS_EX_TOOLWINDOW,
-		stLayeredWindow.lpszClassName,
-		stLayeredWindow.lpszClassName,
-		WS_POPUP | WS_VISIBLE,
-		0, 0,
-		stScreenCords.right - stScreenCords.left, 
-		stScreenCords.bottom - stScreenCords.top,
-		NULL,
-		NULL,
-		stLayeredWindow.hInstance,
-		NULL
-		);
-
-	if (g_hLayeredWindow == NULL) {
-		MessageBoxW(
-			NULL, 
-			g_alpszMessageBoxTexts[0],
-			g_alpszTitles[2],
-			MB_OK | MB_ICONERROR);
-		ExitProcess(0);
-	}
-
-	g_hLayeredWindowDC = GetDC(g_hLayeredWindow);
-
-
-    SetLayeredWindowAttributes(
-		g_hLayeredWindow, 
-		RGB(0,0,0), 
-		90, 
-		LWA_ALPHA
-		);
-	
-	MSG lpWindowMessages;
-	
-
-	while (GetMessage(
-		&lpWindowMessages, 
-		g_hLayeredWindow, 
-		0, 0)
-		) {
-		TranslateMessage(&lpWindowMessages);
-		DispatchMessage(&lpWindowMessages);
-	}
-
-}
-
-LRESULT CALLBACK fnWindProc(
-	_In_ HWND hWnd,
-	_In_ UINT uiMessages,
-	_Inout_ WPARAM pWparam,
-	_In_ LPARAM lpParam
-) {
-
-	switch (uiMessages) {
-	case WM_CLOSE:
-		return FALSE;
-	}
-
-	return DefWindowProcW(
-		hWnd, 
-		uiMessages, 
-		pWparam, 
-		lpParam);
-}
-*/
 BOOL CALLBACK fnEnumWindowsProc(
 	_In_ HWND   hWnd,
     _In_ LPARAM lParam
@@ -609,7 +511,7 @@ VOID WINAPI fnCaptchaText(VOID) {
 		HFONT hFont = CreateFontW(
 			50,
 			-MulDiv((stScreenCords.right - stScreenCords.left) * (stScreenCords.bottom - stScreenCords.top), GetDeviceCaps(g_hRootWindowDC, LOGPIXELSY), 72),
-			fnRNG()%4564545645645,
+			fnRNG()%360,
 			0,
 			FW_BOLD,
 			FALSE,
